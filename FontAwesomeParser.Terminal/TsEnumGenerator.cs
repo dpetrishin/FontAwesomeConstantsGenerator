@@ -21,7 +21,7 @@ namespace FontAwesomeParser.Terminal
             foreach (CssClass cssClass in this.cssClassList)
             {
 //                result.AppendFormat("  {0}=\"{1}\"", cssClass.PascalCaseName, cssClass.Name); 
-                result.Append($"  {cssClass.PascalCaseName}=\"{cssClass.Name}\"");    
+                result.AppendLine($"  {cssClass.PascalCaseName}=\"{cssClass.Name}\",");    
             }
 
             result.AppendLine("}");
