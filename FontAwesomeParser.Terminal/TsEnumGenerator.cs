@@ -16,7 +16,7 @@ namespace FontAwesomeParser.Terminal
         {
             StringBuilder result = new StringBuilder();
 
-            result.AppendLine($"enum {this.enumName} {{");
+            result.AppendLine($"export enum {this.enumName} {{");
 
             foreach (CssClass cssClass in this.cssClassList)
             { 
@@ -25,7 +25,6 @@ namespace FontAwesomeParser.Terminal
 
             result.AppendLine("}");
             result.AppendLine();
-            result.AppendLine($"export default {this.enumName};");
 
             return result;
         }

@@ -24,7 +24,7 @@ namespace FontAwesomeParser.Terminal
             var enumGen = new TsEnumGenerator(cssParser.Result);
             var result = enumGen.Generate();
 
-            string targetFullPath = Path.Combine(currentPath, "index.ts");
+            string targetFullPath = Path.Combine(currentPath, "FontAwesomeConstants.ts");
             
             File.Delete(targetFullPath);
             File.AppendAllText(targetFullPath
