@@ -14,6 +14,7 @@ namespace FontAwesomeParser.Terminal
             var fileFullPath = Path.Combine(currentPath, fileName);
             
             Console.WriteLine($"Put the all.css file in {currentPath}");
+            Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
             
             var content = DirectoryHelper.ReadFromFile(fileFullPath);
@@ -22,8 +23,12 @@ namespace FontAwesomeParser.Terminal
             
             var enumGen = new TsEnumGenerator(cssParser.Result);
             var result = enumGen.Generate();
+
+            string targetFullPath = Path.Combine(currentPath, "index.ts");
             
-            File.AppendAllText(Path.Combine(currentPath, "index.ts"), result.ToString());
+            File.Delete(targetFullPath);
+            File.AppendAllText(targetFullPath
+                , result.ToString());
         }
     }
 }

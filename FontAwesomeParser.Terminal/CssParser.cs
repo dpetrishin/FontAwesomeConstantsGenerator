@@ -22,11 +22,20 @@ namespace FontAwesomeParser.Terminal
             for (int i = 0; i < this.content.Length; i++)
             {
                 char c = content[i];
+                int nextIndex = i == this.content.Length - 1 
+                    ? i   
+                    : i + 1;
                 
-
+                char nextC = content[nextIndex];
+                
                 if (!fillStarted)
                 {
                     if (!this.IsDot(c))
+                    {
+                        continue;
+                    }
+
+                    if (char.IsPunctuation(nextC) || char.IsDigit(nextC))
                     {
                         continue;
                     }
@@ -42,6 +51,11 @@ namespace FontAwesomeParser.Terminal
                         buffer.Clear();
                         fillStarted = false;
                     }
+                    else if (this.IsNotNameSymbols(c))
+                    {
+                        buffer.Clear();
+                        fillStarted = false;
+                    }
                     else if (
                         (char.IsLetterOrDigit(c) || char.IsPunctuation(c)) 
                         && !this.IsCurlyBrackets(c))
@@ -54,11 +68,15 @@ namespace FontAwesomeParser.Terminal
         
         public List<CssClass> Result =>  this.result;
 
+        private bool IsNotNameSymbols(char c)
+        {
+            return c == '\\' || c == '/';
+        }
+        
         private bool IsCurlyBrackets(char c)
         {
             return c == '{' || c == '}';
         }
-        
         
         private bool IsDot(char c)
         {

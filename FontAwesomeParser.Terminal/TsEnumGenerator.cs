@@ -19,12 +19,13 @@ namespace FontAwesomeParser.Terminal
             result.AppendLine($"enum {this.enumName} {{");
 
             foreach (CssClass cssClass in this.cssClassList)
-            {
-//                result.AppendFormat("  {0}=\"{1}\"", cssClass.PascalCaseName, cssClass.Name); 
+            { 
                 result.AppendLine($"  {cssClass.PascalCaseName}=\"{cssClass.Name}\",");    
             }
 
             result.AppendLine("}");
+            result.AppendLine();
+            result.AppendLine($"export default {this.enumName}");
 
             return result;
         }
