@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using FontAwesomeParser.Terminal;
 using NUnit.Framework;
 
@@ -33,11 +34,12 @@ namespace FontAwesomeParser.Tests
             var parser = new CssParser(this.content);
             parser.Parse();
 
-            List<CssClass> result = parser.Result;
+            IEnumerable<CssClass> result = parser.Result;
 
-            for (int i = 0; i< result.Count; i++)
+            var cssClasses = result.ToList();    
+            for (int i = 0; i< cssClasses.Count; i++)
             {
-                var resultElement = result[i];
+                var resultElement = cssClasses[i];
                 var expectedElement = this.checkList[i];
                 
                 Assert.That(resultElement.Name, Is.EqualTo(expectedElement.Name));

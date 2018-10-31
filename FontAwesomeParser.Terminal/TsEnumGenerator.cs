@@ -6,8 +6,8 @@ namespace FontAwesomeParser.Terminal
     public class TsEnumGenerator
     {
         private readonly string enumName = "FontAwesomeIcons";
-        private readonly List<CssClass> cssClassList;
-        public TsEnumGenerator(List<CssClass> cssClassList)
+        private readonly IEnumerable<CssClass> cssClassList;
+        public TsEnumGenerator(IEnumerable<CssClass> cssClassList)
         {
             this.cssClassList = cssClassList;
         }

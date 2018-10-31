@@ -9,10 +9,13 @@ namespace FontAwesomeParser.Terminal
     {
         private string content;
         private List<CssClass> result;
+        private ISet<string> uniqueNameSet;
+        
         public CssParser(string content)
         {
             this.content = content;
             this.result = new List<CssClass>();
+            this.uniqueNameSet = new HashSet<string>();
         }
 
         public void Parse()
@@ -47,7 +50,8 @@ namespace FontAwesomeParser.Terminal
                 {
                     if (this.IsEndOfClassName(c))
                     {
-                        result.Add(new CssClass(new string(buffer.ToArray())));
+                        this.uniqueNameSet.Add(new string(buffer.ToArray()));
+                        //result.Add(new CssClass());
                         buffer.Clear();
                         fillStarted = false;
                     }
@@ -65,12 +69,18 @@ namespace FontAwesomeParser.Terminal
                 }
             }
         }
+
+        public IEnumerable<CssClass> GetResult()
+        {
+            IEnumerable<CssClass> list = this.uniqueNameSet.Select(x => new CssClass(x));
+            return list;
+        }
         
-        public List<CssClass> Result =>  this.result;
+        public IEnumerable<CssClass> Result =>  this.uniqueNameSet.Select(x => new CssClass(x));
 
         private bool IsNotNameSymbols(char c)
         {
-            return c == '\\' || c == '/';
+            return c == '\\' || c == '/' || c== '"' || c == '#';
         }
         
         private bool IsCurlyBrackets(char c)
@@ -95,7 +105,7 @@ namespace FontAwesomeParser.Terminal
 
         private bool IsEndOfClassName(char c)
         {
-            return this.IsComma(c) || char.IsWhiteSpace(c) || this.IsColon(c);
+            return this.IsDot(c) || this.IsComma(c) || char.IsWhiteSpace(c) || this.IsColon(c);
         } 
     }
 }
