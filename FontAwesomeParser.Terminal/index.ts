@@ -1281,4 +1281,4 @@ enum FontAwesomeIcons {
   SrOnlyFocusable="sr-only-focusable",
 }
 
-export default FontAwesomeIcons
+export default FontAwesomeIcons;

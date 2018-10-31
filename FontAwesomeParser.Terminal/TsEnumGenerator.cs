@@ -25,7 +25,7 @@ namespace FontAwesomeParser.Terminal
 
             result.AppendLine("}");
             result.AppendLine();
-            result.AppendLine($"export default {this.enumName}");
+            result.AppendLine($"export default {this.enumName};");
 
             return result;
         }
